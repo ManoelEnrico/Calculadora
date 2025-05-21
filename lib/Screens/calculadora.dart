@@ -17,20 +17,22 @@ class _CalcularState extends State<Calcular> {
   int operacao = 0;
 
   String result = "0";
-  String ac = "0";
+  String saber = "";
+
   String par = "";
   String num1 = "1";
 
   int clickL1 = 1;
-  int clicl2 = 1;
-  
-  
+  int click2 = 1;
 
-  void _adicionarValor(String valor) {
+  limpar() {
     setState(() {
-      result = ac;
+      saber = "";
+      result = "0";
       clickL1 = 1;
-      clicl2 = 1;
+      click2 = 1;
+      resultado = 0;
+      operacao = 0;
     });
   }
 
@@ -44,6 +46,7 @@ class _CalcularState extends State<Calcular> {
     }
 
     setState(() {
+      click2 = 2;
       if (result == "0") {
         result = par;
       } else {
@@ -52,13 +55,17 @@ class _CalcularState extends State<Calcular> {
     });
   }
 
-  somar(){
+  somar() {
+    valor1 = double.parse(result);
+    click2 = 1;
+    operacao = 1;
     setState(() {
-      valor1 = double.parse(result);
       result = "0";
-      operacao = 1;
+      saber += "+";
     });
   }
+
+  fazerConta() {}
 
   double width_button = 80.6;
   double height_button = 80.6;
@@ -76,19 +83,35 @@ class _CalcularState extends State<Calcular> {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      margin: EdgeInsets.all(10),
+      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 30),
       decoration: BoxDecoration(
           color: Colors.cyanAccent, borderRadius: BorderRadius.circular(10)),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          // SizedBox(
-          //   height: 5,
-          // ),
+          buildSapiente(),
           buildMostrar(),
           buildTeclado(),
         ],
+      ),
+    );
+  }
+
+  Widget buildSapiente() {
+    return Container(
+      alignment: Alignment.bottomRight,
+      width: double.infinity,
+      height: 50,
+      margin: EdgeInsets.only(right: 10, left: 220),
+      child: AutoSizeText(
+        saber,
+        minFontSize: 20,
+        maxFontSize: 20,
+        maxLines: 1,
+        textAlign: TextAlign.end,
+        style: TextStyle(
+          color: Colors.grey,
+        ),
       ),
     );
   }
@@ -97,7 +120,7 @@ class _CalcularState extends State<Calcular> {
     return Container(
         width: double.infinity,
         height: 100,
-        margin: EdgeInsets.only(top: 30, bottom: 15, left: 10, right: 20),
+        margin: EdgeInsets.only(bottom: 10, left: 10, right: 20),
         child: AutoSizeText(
           result,
           minFontSize: 40.0,
@@ -108,18 +131,13 @@ class _CalcularState extends State<Calcular> {
             fontSize: 80.0,
             color: Colors.white,
           ),
-          // TextField(
-          //   maxLength: 15,
-          //   enabled: false,
-          // ),
         ));
   }
 
   Widget buildTeclado() {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 10),
+      margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           buildLinha1(),
           buildLinha2(),
@@ -142,7 +160,7 @@ class _CalcularState extends State<Calcular> {
             height: height_button,
             child: TextButton(
               onPressed: () {
-                _adicionarValor(ac);
+                limpar();
               },
               child: Text(
                 "C",
@@ -208,7 +226,7 @@ class _CalcularState extends State<Calcular> {
             child: TextButton(
               onPressed: () {},
               child: Text(
-                "/",
+                "÷",
                 style: TextStyle(
                   fontSize: 48,
                   color: Colors.lightGreenAccent,
@@ -233,11 +251,13 @@ class _CalcularState extends State<Calcular> {
             child: TextButton(
               onPressed: () {
                 setState(() {
-                  if (clicl2 == 1) {
+                  if (click2 == 1) {
                     result = "7";
-                    clicl2 = 2;
-                  } else if (clicl2 == 2) {
+                    saber = "7";
+                    click2 = 2;
+                  } else if (click2 == 2) {
                     result += "7";
+                    saber += "7";
                   }
                 });
               },
@@ -263,10 +283,10 @@ class _CalcularState extends State<Calcular> {
             child: TextButton(
               onPressed: () {
                 setState(() {
-                  if (clicl2 == 1) {
+                  if (click2 == 1) {
                     result = "8";
-                    clicl2 = 2;
-                  } else if (clicl2 == 2) {
+                    click2 = 2;
+                  } else if (click2 == 2) {
                     result += "8";
                   }
                 });
@@ -293,10 +313,10 @@ class _CalcularState extends State<Calcular> {
             child: TextButton(
               onPressed: () {
                 setState(() {
-                  if (clicl2 == 1) {
+                  if (click2 == 1) {
                     result = "9";
-                    clicl2 = 2;
-                  } else if (clicl2 == 2) {
+                    click2 = 2;
+                  } else if (click2 == 2) {
                     result += "9";
                   }
                 });
@@ -348,10 +368,10 @@ class _CalcularState extends State<Calcular> {
             child: TextButton(
               onPressed: () {
                 setState(() {
-                  if (clicl2 == 1) {
+                  if (click2 == 1) {
                     result = "4";
-                    clicl2 = 2;
-                  } else if (clicl2 == 2) {
+                    click2 = 2;
+                  } else if (click2 == 2) {
                     result += "4";
                   }
                 });
@@ -378,10 +398,10 @@ class _CalcularState extends State<Calcular> {
             child: TextButton(
               onPressed: () {
                 setState(() {
-                  if (clicl2 == 1) {
+                  if (click2 == 1) {
                     result = "5";
-                    clicl2 = 2;
-                  } else if (clicl2 == 2) {
+                    click2 = 2;
+                  } else if (click2 == 2) {
                     result += "5";
                   }
                 });
@@ -408,10 +428,10 @@ class _CalcularState extends State<Calcular> {
             child: TextButton(
               onPressed: () {
                 setState(() {
-                  if (clicl2 == 1) {
+                  if (click2 == 1) {
                     result = "6";
-                    clicl2 = 2;
-                  } else if (clicl2 == 2) {
+                    click2 = 2;
+                  } else if (click2 == 2) {
                     result += "6";
                   }
                 });
@@ -438,7 +458,7 @@ class _CalcularState extends State<Calcular> {
             child: TextButton(
               onPressed: () {},
               child: Text(
-                "--",
+                "—",
                 style: TextStyle(
                   fontSize: 50,
                   color: Colors.lightGreenAccent,
@@ -463,10 +483,10 @@ class _CalcularState extends State<Calcular> {
             child: TextButton(
               onPressed: () {
                 setState(() {
-                  if (clicl2 == 1) {
+                  if (click2 == 1) {
                     result = "1";
-                    clicl2 = 2;
-                  } else if (clicl2 == 2) {
+                    click2 = 2;
+                  } else if (click2 == 2) {
                     result += "1";
                   }
                 });
@@ -493,10 +513,10 @@ class _CalcularState extends State<Calcular> {
             child: TextButton(
               onPressed: () {
                 setState(() {
-                  if (clicl2 == 1) {
+                  if (click2 == 1) {
                     result = "2";
-                    clicl2 = 2;
-                  } else if (clicl2 == 2) {
+                    click2 = 2;
+                  } else if (click2 == 2) {
                     result += "2";
                   }
                 });
@@ -523,10 +543,10 @@ class _CalcularState extends State<Calcular> {
             child: TextButton(
               onPressed: () {
                 setState(() {
-                  if (clicl2 == 1) {
+                  if (click2 == 1) {
                     result = "3";
-                    clicl2 = 2;
-                  } else if (clicl2 == 2) {
+                    click2 = 2;
+                  } else if (click2 == 2) {
                     result += "3";
                   }
                 });
@@ -599,10 +619,10 @@ class _CalcularState extends State<Calcular> {
             child: TextButton(
               onPressed: () {
                 setState(() {
-                  if (clicl2 == 1) {
+                  if (click2 == 1) {
                     result = "0";
-                    clicl2 = 2;
-                  } else if (clicl2 == 2) {
+                    click2 = 2;
+                  } else if (click2 == 2) {
                     result += "0";
                   }
                 });
@@ -629,7 +649,7 @@ class _CalcularState extends State<Calcular> {
             child: TextButton(
               onPressed: () {
                 setState(() {
-                  if (clicl2 == 2){
+                  if (click2 == 2) {
                     result += ".";
                   }
                 });
@@ -654,7 +674,7 @@ class _CalcularState extends State<Calcular> {
             width: width_button,
             height: height_button,
             child: TextButton(
-              onPressed: () {},
+              onPressed: fazerConta,
               child: Text(
                 "=",
                 style: TextStyle(
