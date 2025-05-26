@@ -14,7 +14,8 @@ class _CalcularState extends State<Calcular> {
   double valor1 = 0;
   double valor2 = 0;
   double resultado = 0;
-  int operacao = 0;
+  int operacao = 0; // soma = 1; subtrair = 2; dividir = 3; multiplicar = 4
+  int porcentagem = 0;
 
   String result = "0";
   String saber = "";
@@ -24,6 +25,7 @@ class _CalcularState extends State<Calcular> {
 
   int clickL1 = 1;
   int click2 = 1;
+  int clickp = 1;
 
   limpar() {
     setState(() {
@@ -56,16 +58,79 @@ class _CalcularState extends State<Calcular> {
   }
 
   somar() {
-    valor1 = double.parse(result);
-    click2 = 1;
-    operacao = 1;
+    if (click2 == 2) {
+      valor1 = double.parse(result);
+      operacao = 1;
+      setState(() {
+        result = "0";
+        saber += "+";
+      });
+    }
+    // if (click2 == 2) {
+    //   valor1 = double.parse(result);
+    //   click2 = 1;
+    //   operacao = 1;
+    //   setState(() {
+    //     result = "0";
+    //     saber += "+";
+    //   });
+    // }
+  }
+
+  subtrair() {
+    operacao = 2;
     setState(() {
-      result = "0";
-      saber += "+";
+      if (click2 == 2) {
+        saber += "-";
+      }
     });
   }
 
-  fazerConta() {}
+  divisao() {
+    operacao = 3;
+    setState(() {
+      if (click2 == 2) {
+        saber += "÷";
+      }
+    });
+  }
+
+  mult() {
+    operacao = 4;
+    setState(() {
+      if (click2 == 2) {
+        saber += "x";
+      }
+    });
+  }
+
+  fazerConta() {
+    if (operacao == 1) {
+      valor2 = double.parse(result);
+      setState(() {
+        resultado = valor1 + valor2;
+        result = resultado.toString();
+      });
+    } else if (operacao == 2) {
+      valor2 = double.parse(result);
+      setState(() {
+        resultado = valor1 - valor2;
+        result = resultado.toString();
+      });
+    } else if (operacao == 3) {
+      valor2 = double.parse(result);
+      setState(() {
+        resultado = valor1 / valor2;
+        result = resultado.toString();
+      });
+    } else if (operacao == 4) {
+      valor2 = double.parse(result);
+      setState(() {
+        resultado = valor1 * valor2;
+        result = resultado.toString();
+      });
+    }
+  }
 
   double width_button = 80.6;
   double height_button = 80.6;
@@ -203,7 +268,15 @@ class _CalcularState extends State<Calcular> {
             width: width_button,
             height: height_button,
             child: TextButton(
-              onPressed: () {},
+              onPressed: () {
+                setState(() {
+                  if (click2 == 2 && porcentagem == 0) {
+                    result += "%";
+                    saber += "%";
+                    porcentagem++;
+                  }
+                });
+              },
               child: Text(
                 "%",
                 style: TextStyle(
@@ -224,7 +297,7 @@ class _CalcularState extends State<Calcular> {
             width: width_button,
             height: height_button,
             child: TextButton(
-              onPressed: () {},
+              onPressed: divisao,
               child: Text(
                 "÷",
                 style: TextStyle(
@@ -256,8 +329,13 @@ class _CalcularState extends State<Calcular> {
                     saber = "7";
                     click2 = 2;
                   } else if (click2 == 2) {
-                    result += "7";
-                    saber += "7";
+                    if (operacao > 0) {
+                      result = "7";
+                      saber += "7";
+                    } else {
+                      result += "7";
+                      saber += "7";
+                    }
                   }
                 });
               },
@@ -285,9 +363,11 @@ class _CalcularState extends State<Calcular> {
                 setState(() {
                   if (click2 == 1) {
                     result = "8";
+                    saber = "8";
                     click2 = 2;
                   } else if (click2 == 2) {
                     result += "8";
+                    saber += "8";
                   }
                 });
               },
@@ -315,9 +395,11 @@ class _CalcularState extends State<Calcular> {
                 setState(() {
                   if (click2 == 1) {
                     result = "9";
+                    saber = "9";
                     click2 = 2;
                   } else if (click2 == 2) {
                     result += "9";
+                    saber += "9";
                   }
                 });
               },
@@ -341,7 +423,7 @@ class _CalcularState extends State<Calcular> {
             width: width_button,
             height: height_button,
             child: TextButton(
-              onPressed: () {},
+              onPressed: mult,
               child: Text(
                 "X",
                 style: TextStyle(
@@ -370,9 +452,11 @@ class _CalcularState extends State<Calcular> {
                 setState(() {
                   if (click2 == 1) {
                     result = "4";
+                    saber = "4";
                     click2 = 2;
                   } else if (click2 == 2) {
                     result += "4";
+                    saber += "4";
                   }
                 });
               },
@@ -400,9 +484,11 @@ class _CalcularState extends State<Calcular> {
                 setState(() {
                   if (click2 == 1) {
                     result = "5";
+                    saber = "5";
                     click2 = 2;
                   } else if (click2 == 2) {
                     result += "5";
+                    saber += "5";
                   }
                 });
               },
@@ -430,9 +516,11 @@ class _CalcularState extends State<Calcular> {
                 setState(() {
                   if (click2 == 1) {
                     result = "6";
+                    saber = "6";
                     click2 = 2;
                   } else if (click2 == 2) {
                     result += "6";
+                    saber += "6";
                   }
                 });
               },
@@ -456,7 +544,7 @@ class _CalcularState extends State<Calcular> {
             width: width_button,
             height: height_button,
             child: TextButton(
-              onPressed: () {},
+              onPressed: subtrair,
               child: Text(
                 "—",
                 style: TextStyle(
@@ -485,9 +573,11 @@ class _CalcularState extends State<Calcular> {
                 setState(() {
                   if (click2 == 1) {
                     result = "1";
+                    saber = "1";
                     click2 = 2;
                   } else if (click2 == 2) {
                     result += "1";
+                    saber += "1";
                   }
                 });
               },
@@ -515,9 +605,11 @@ class _CalcularState extends State<Calcular> {
                 setState(() {
                   if (click2 == 1) {
                     result = "2";
+                    saber = "2";
                     click2 = 2;
                   } else if (click2 == 2) {
                     result += "2";
+                    saber += "2";
                   }
                 });
               },
@@ -545,9 +637,11 @@ class _CalcularState extends State<Calcular> {
                 setState(() {
                   if (click2 == 1) {
                     result = "3";
+                    saber = "3";
                     click2 = 2;
                   } else if (click2 == 2) {
                     result += "3";
+                    saber += "3";
                   }
                 });
               },
@@ -648,11 +742,15 @@ class _CalcularState extends State<Calcular> {
             height: height_button,
             child: TextButton(
               onPressed: () {
-                setState(() {
-                  if (click2 == 2) {
-                    result += ".";
-                  }
-                });
+                if (clickp == 1) {
+                  clickp++;
+                  setState(() {
+                    if (click2 == 2) {
+                      result += ".";
+                      saber += ".";
+                    }
+                  });
+                }
               },
               child: Text(
                 ".",
