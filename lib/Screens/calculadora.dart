@@ -21,11 +21,11 @@ class _CalcularState extends State<Calcular> {
   String saber = "";
 
   String par = "";
-  String num1 = "1";
 
   int clickL1 = 1;
   int click2 = 1;
   int clickp = 1;
+  int clickpop = 1;
 
   limpar() {
     setState(() {
@@ -61,29 +61,23 @@ class _CalcularState extends State<Calcular> {
     if (click2 == 2) {
       valor1 = double.parse(result);
       operacao = 1;
+      click2 = 1;
       setState(() {
         result = "0";
         saber += "+";
       });
     }
-    // if (click2 == 2) {
-    //   valor1 = double.parse(result);
-    //   click2 = 1;
-    //   operacao = 1;
-    //   setState(() {
-    //     result = "0";
-    //     saber += "+";
-    //   });
-    // }
   }
 
   subtrair() {
-    operacao = 2;
-    setState(() {
-      if (click2 == 2) {
+    if (click2 == 2) {
+      valor1 = double.parse(result);
+      operacao = 2;
+      setState(() {
+        result = "0";
         saber += "-";
-      }
-    });
+      });
+    }
   }
 
   divisao() {
@@ -330,7 +324,7 @@ class _CalcularState extends State<Calcular> {
                     click2 = 2;
                   } else if (click2 == 2) {
                     if (operacao > 0) {
-                      result = "7";
+                      result += "7";
                       saber += "7";
                     } else {
                       result += "7";
@@ -366,8 +360,13 @@ class _CalcularState extends State<Calcular> {
                     saber = "8";
                     click2 = 2;
                   } else if (click2 == 2) {
-                    result += "8";
-                    saber += "8";
+                    if (operacao > 0) {
+                      result = "8";
+                      saber += "8";
+                    } else {
+                      result += "8";
+                      saber += "8";
+                    }
                   }
                 });
               },
@@ -398,8 +397,13 @@ class _CalcularState extends State<Calcular> {
                     saber = "9";
                     click2 = 2;
                   } else if (click2 == 2) {
-                    result += "9";
-                    saber += "9";
+                    if (operacao > 0) {
+                      result = "9";
+                      saber += "9";
+                    } else {
+                      result += "9";
+                      saber += "9";
+                    }
                   }
                 });
               },
@@ -455,8 +459,13 @@ class _CalcularState extends State<Calcular> {
                     saber = "4";
                     click2 = 2;
                   } else if (click2 == 2) {
-                    result += "4";
-                    saber += "4";
+                    if (operacao > 0) {
+                      result = "4";
+                      saber += "4";
+                    } else {
+                      result += "4";
+                      saber += "4";
+                    }
                   }
                 });
               },
@@ -487,8 +496,13 @@ class _CalcularState extends State<Calcular> {
                     saber = "5";
                     click2 = 2;
                   } else if (click2 == 2) {
-                    result += "5";
-                    saber += "5";
+                    if (operacao > 0) {
+                      result = "5";
+                      saber += "5";
+                    } else {
+                      result += "5";
+                      saber += "5";
+                    }
                   }
                 });
               },
@@ -519,8 +533,13 @@ class _CalcularState extends State<Calcular> {
                     saber = "6";
                     click2 = 2;
                   } else if (click2 == 2) {
-                    result += "6";
-                    saber += "6";
+                    if (operacao > 0) {
+                      result = "6";
+                      saber += "6";
+                    } else {
+                      result += "6";
+                      saber += "6";
+                    }
                   }
                 });
               },
@@ -576,8 +595,13 @@ class _CalcularState extends State<Calcular> {
                     saber = "1";
                     click2 = 2;
                   } else if (click2 == 2) {
-                    result += "1";
-                    saber += "1";
+                    if (operacao > 0) {
+                      result = "1";
+                      saber += "1";
+                    } else {
+                      result += "1";
+                      saber += "1";
+                    }
                   }
                 });
               },
@@ -608,8 +632,13 @@ class _CalcularState extends State<Calcular> {
                     saber = "2";
                     click2 = 2;
                   } else if (click2 == 2) {
-                    result += "2";
-                    saber += "2";
+                    if (operacao > 0) {
+                      result += "2";
+                      saber += "2";
+                    } else {
+                      result += "2";
+                      saber += "2";
+                    }
                   }
                 });
               },
@@ -640,8 +669,13 @@ class _CalcularState extends State<Calcular> {
                     saber = "3";
                     click2 = 2;
                   } else if (click2 == 2) {
-                    result += "3";
-                    saber += "3";
+                    if (operacao > 0) {
+                      result = "3";
+                      saber += "3";
+                    } else {
+                      result += "3";
+                      saber += "3";
+                    }
                   }
                 });
               },
@@ -717,7 +751,13 @@ class _CalcularState extends State<Calcular> {
                     result = "0";
                     click2 = 2;
                   } else if (click2 == 2) {
-                    result += "0";
+                    if (operacao > 0) {
+                      result = "0";
+                      saber += "0";
+                    } else {
+                      result += "0";
+                      saber += "0";
+                    }
                   }
                 });
               },
@@ -743,7 +783,7 @@ class _CalcularState extends State<Calcular> {
             child: TextButton(
               onPressed: () {
                 if (clickp == 1) {
-                  clickp++;
+                  clickp ++;
                   setState(() {
                     if (click2 == 2) {
                       result += ".";
