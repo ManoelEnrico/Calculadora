@@ -25,7 +25,7 @@ class _CalcularState extends State<Calcular> {
   int clickL1 = 1;
   int click2 = 1;
   int clickp = 1;
-  int clickpop = 1;
+  // int clickpop = 1;
 
   limpar() {
     setState(() {
@@ -57,6 +57,16 @@ class _CalcularState extends State<Calcular> {
     });
   }
 
+  porcem() {
+      setState(() {
+        if (click2 == 2 && porcentagem == 0) {
+          result += "%";
+          saber += "%";
+          porcentagem++;
+        }
+      });
+    }
+
   somar() {
     if (click2 == 2) {
       valor1 = double.parse(result);
@@ -73,6 +83,7 @@ class _CalcularState extends State<Calcular> {
     if (click2 == 2) {
       valor1 = double.parse(result);
       operacao = 2;
+      click2 = 1;
       setState(() {
         result = "0";
         saber += "-";
@@ -81,21 +92,27 @@ class _CalcularState extends State<Calcular> {
   }
 
   divisao() {
-    operacao = 3;
-    setState(() {
-      if (click2 == 2) {
+    if (click2 == 2) {
+      valor1 = double.parse(result);
+      operacao = 3;
+      click2 = 1;
+      setState(() {
+        result = "0";
         saber += "÷";
-      }
-    });
+      });
+    }
   }
 
   mult() {
-    operacao = 4;
-    setState(() {
-      if (click2 == 2) {
+    if (click2 == 2) {
+      valor1 = double.parse(result);
+      operacao = 4;
+      click2 = 1;
+      setState(() {
+        result = "0";
         saber += "x";
-      }
-    });
+      });
+    }
   }
 
   fazerConta() {
@@ -212,10 +229,9 @@ class _CalcularState extends State<Calcular> {
     return Row(
       children: [
         Card(
-          shape: CircleBorder(eccentricity: 1),
           color: Colors.lightBlue,
           child: Container(
-            width: width_button,
+            width: 260,
             height: height_button,
             child: TextButton(
               onPressed: () {
@@ -234,56 +250,48 @@ class _CalcularState extends State<Calcular> {
         SizedBox(
           width: width_box,
         ),
-        Card(
-          shape: CircleBorder(eccentricity: 1),
-          color: Colors.lightBlue,
-          child: Container(
-            width: width_button,
-            height: height_button,
-            child: TextButton(
-              onPressed: parenteses,
-              child: Text(
-                "( )",
-                style: TextStyle(
-                  fontSize: 40,
-                  color: Colors.lightGreenAccent,
-                ),
-              ),
-            ),
-          ),
-        ),
-        SizedBox(
-          width: width_box,
-        ),
-        Card(
-          shape: CircleBorder(eccentricity: 1),
-          color: Colors.lightBlue,
-          child: Container(
-            width: width_button,
-            height: height_button,
-            child: TextButton(
-              onPressed: () {
-                setState(() {
-                  if (click2 == 2 && porcentagem == 0) {
-                    result += "%";
-                    saber += "%";
-                    porcentagem++;
-                  }
-                });
-              },
-              child: Text(
-                "%",
-                style: TextStyle(
-                  fontSize: 47,
-                  color: Colors.lightGreenAccent,
-                ),
-              ),
-            ),
-          ),
-        ),
-        SizedBox(
-          width: width_box,
-        ),
+        // Card(
+        //   shape: CircleBorder(eccentricity: 1),
+        //   color: Colors.lightBlue,
+        //   child: Container(
+        //     width: width_button,
+        //     height: height_button,
+        //     child: TextButton(
+        //       onPressed: parenteses,
+        //       child: Text(
+        //         "( )",
+        //         style: TextStyle(
+        //           fontSize: 40,
+        //           color: Colors.lightGreenAccent,
+        //         ),
+        //       ),
+        //     ),
+        //   ),
+        // ),
+        // SizedBox(
+        //   width: width_box,
+        // ),
+        // Card(
+        //   shape: CircleBorder(eccentricity: 1),
+        //   color: Colors.lightBlue,
+        //   child: Container(
+        //     width: width_button,
+        //     height: height_button,
+        //     child: TextButton(
+        //       onPressed: porcem,
+        //       child: Text(
+        //         "%",
+        //         style: TextStyle(
+        //           fontSize: 47,
+        //           color: Colors.lightGreenAccent,
+        //         ),
+        //       ),
+        //     ),
+        //   ),
+        // ),
+        // SizedBox(
+        //   width: width_box,
+        // ),
         Card(
           shape: CircleBorder(eccentricity: 1),
           color: Colors.lightBlue,
@@ -320,16 +328,11 @@ class _CalcularState extends State<Calcular> {
                 setState(() {
                   if (click2 == 1) {
                     result = "7";
-                    saber = "7";
+                    saber += "7";
                     click2 = 2;
                   } else if (click2 == 2) {
-                    if (operacao > 0) {
-                      result += "7";
-                      saber += "7";
-                    } else {
-                      result += "7";
-                      saber += "7";
-                    }
+                    result += "7";
+                    saber += "7";
                   }
                 });
               },
@@ -357,16 +360,11 @@ class _CalcularState extends State<Calcular> {
                 setState(() {
                   if (click2 == 1) {
                     result = "8";
-                    saber = "8";
+                    saber += "8";
                     click2 = 2;
                   } else if (click2 == 2) {
-                    if (operacao > 0) {
-                      result = "8";
-                      saber += "8";
-                    } else {
-                      result += "8";
-                      saber += "8";
-                    }
+                    result += "8";
+                    saber += "8";
                   }
                 });
               },
@@ -394,16 +392,11 @@ class _CalcularState extends State<Calcular> {
                 setState(() {
                   if (click2 == 1) {
                     result = "9";
-                    saber = "9";
+                    saber += "9";
                     click2 = 2;
                   } else if (click2 == 2) {
-                    if (operacao > 0) {
-                      result = "9";
-                      saber += "9";
-                    } else {
-                      result += "9";
-                      saber += "9";
-                    }
+                    result += "9";
+                    saber += "9";
                   }
                 });
               },
@@ -456,16 +449,11 @@ class _CalcularState extends State<Calcular> {
                 setState(() {
                   if (click2 == 1) {
                     result = "4";
-                    saber = "4";
+                    saber += "4";
                     click2 = 2;
                   } else if (click2 == 2) {
-                    if (operacao > 0) {
-                      result = "4";
-                      saber += "4";
-                    } else {
-                      result += "4";
-                      saber += "4";
-                    }
+                    result += "4";
+                    saber += "4";
                   }
                 });
               },
@@ -493,16 +481,11 @@ class _CalcularState extends State<Calcular> {
                 setState(() {
                   if (click2 == 1) {
                     result = "5";
-                    saber = "5";
+                    saber += "5";
                     click2 = 2;
                   } else if (click2 == 2) {
-                    if (operacao > 0) {
-                      result = "5";
-                      saber += "5";
-                    } else {
-                      result += "5";
-                      saber += "5";
-                    }
+                    result += "5";
+                    saber += "5";
                   }
                 });
               },
@@ -530,16 +513,11 @@ class _CalcularState extends State<Calcular> {
                 setState(() {
                   if (click2 == 1) {
                     result = "6";
-                    saber = "6";
+                    saber += "6";
                     click2 = 2;
                   } else if (click2 == 2) {
-                    if (operacao > 0) {
-                      result = "6";
-                      saber += "6";
-                    } else {
-                      result += "6";
-                      saber += "6";
-                    }
+                    result += "6";
+                    saber += "6";
                   }
                 });
               },
@@ -592,16 +570,11 @@ class _CalcularState extends State<Calcular> {
                 setState(() {
                   if (click2 == 1) {
                     result = "1";
-                    saber = "1";
+                    saber += "1";
                     click2 = 2;
                   } else if (click2 == 2) {
-                    if (operacao > 0) {
-                      result = "1";
-                      saber += "1";
-                    } else {
-                      result += "1";
-                      saber += "1";
-                    }
+                    result += "1";
+                    saber += "1";
                   }
                 });
               },
@@ -629,16 +602,11 @@ class _CalcularState extends State<Calcular> {
                 setState(() {
                   if (click2 == 1) {
                     result = "2";
-                    saber = "2";
+                    saber += "2";
                     click2 = 2;
                   } else if (click2 == 2) {
-                    if (operacao > 0) {
-                      result += "2";
-                      saber += "2";
-                    } else {
-                      result += "2";
-                      saber += "2";
-                    }
+                    result += "2";
+                    saber += "2";
                   }
                 });
               },
@@ -666,16 +634,11 @@ class _CalcularState extends State<Calcular> {
                 setState(() {
                   if (click2 == 1) {
                     result = "3";
-                    saber = "3";
+                    saber += "3";
                     click2 = 2;
                   } else if (click2 == 2) {
-                    if (operacao > 0) {
-                      result = "3";
-                      saber += "3";
-                    } else {
-                      result += "3";
-                      saber += "3";
-                    }
+                    result += "3";
+                    saber += "3";
                   }
                 });
               },
@@ -723,16 +686,16 @@ class _CalcularState extends State<Calcular> {
           child: Container(
             width: width_button,
             height: height_button,
-            child: TextButton(
-              onPressed: () {},
-              child: Text(
-                "+/-",
-                style: TextStyle(
-                  fontSize: 40,
-                  color: Colors.black,
-                ),
-              ),
-            ),
+            // child: TextButton(
+            //   onPressed: () {},
+            //   child: Text(
+            //     "+/-",
+            //     style: TextStyle(
+            //       fontSize: 40,
+            //       color: Colors.black,
+            //     ),
+            //   ),
+            // ),
           ),
         ),
         SizedBox(
@@ -749,7 +712,9 @@ class _CalcularState extends State<Calcular> {
                 setState(() {
                   if (click2 == 1) {
                     result = "0";
-                    click2 = 2;
+                  } else if (clickp > 1) {
+                    result += "0";
+                    saber += "0";
                   } else if (click2 == 2) {
                     if (operacao > 0) {
                       result = "0";
@@ -783,11 +748,17 @@ class _CalcularState extends State<Calcular> {
             child: TextButton(
               onPressed: () {
                 if (clickp == 1) {
-                  clickp ++;
                   setState(() {
                     if (click2 == 2) {
+                      clickp++;
                       result += ".";
                       saber += ".";
+                    }
+                    if (result == "0") {
+                      clickp++;
+                      click2 = 2;
+                      result += ".";
+                      saber += "0.";
                     }
                   });
                 }
