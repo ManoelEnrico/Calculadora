@@ -72,6 +72,7 @@ class _CalcularState extends State<Calcular> {
       valor1 = double.parse(result);
       operacao = 1;
       click2 = 1;
+      clickp = 1;
       setState(() {
         result = "0";
         saber += "+";
@@ -84,6 +85,7 @@ class _CalcularState extends State<Calcular> {
       valor1 = double.parse(result);
       operacao = 2;
       click2 = 1;
+      clickp = 1;
       setState(() {
         result = "0";
         saber += "-";
@@ -96,6 +98,7 @@ class _CalcularState extends State<Calcular> {
       valor1 = double.parse(result);
       operacao = 3;
       click2 = 1;
+      clickp = 1;
       setState(() {
         result = "0";
         saber += "÷";
@@ -108,6 +111,7 @@ class _CalcularState extends State<Calcular> {
       valor1 = double.parse(result);
       operacao = 4;
       click2 = 1;
+      clickp = 1;
       setState(() {
         result = "0";
         saber += "x";
