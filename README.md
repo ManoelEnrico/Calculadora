@@ -1,6 +1,7 @@
-# calculadora
+# Calculadora
 
-A new Flutter project.
+Projeto de uma calculadora feito em flutter para prática de lógica de progrmação, devido ao tempo em que fiquei sem estudar.
+O app consiste em uma calculadora que realiza operações simples de apenas dois números por vez.
 
 ## Getting Started
 
