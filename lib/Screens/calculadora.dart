@@ -1,5 +1,6 @@
 // ignore_for_file: unused_field, unused_import
 
+import 'package:calculadora/logica.dart' show Logica;
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
@@ -29,12 +30,12 @@ class _CalcularState extends State<Calcular> {
 
   limpar() {
     setState(() {
-      saber = "";
-      result = "0";
-      clickL1 = 1;
-      click2 = 1;
-      resultado = 0;
-      operacao = 0;
+      // saber = "";
+      // result = "0";
+      // clickL1 = 1;
+      // click2 = 1;
+      // resultado = 0;
+      // operacao = 0;
     });
   }
 
@@ -58,14 +59,14 @@ class _CalcularState extends State<Calcular> {
   }
 
   porcem() {
-      setState(() {
-        if (click2 == 2 && porcentagem == 0) {
-          result += "%";
-          saber += "%";
-          porcentagem++;
-        }
-      });
-    }
+    setState(() {
+      if (click2 == 2 && porcentagem == 0) {
+        result += "%";
+        saber += "%";
+        porcentagem++;
+      }
+    });
+  }
 
   somar() {
     if (click2 == 2) {
