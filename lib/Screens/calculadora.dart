@@ -1,6 +1,6 @@
 // ignore_for_file: unused_field, unused_import
 
-import 'package:calculadora/logica.dart' show Logica;
+import 'package:calculadora/logica.dart' show CalLogica;
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
@@ -12,140 +12,20 @@ class Calcular extends StatefulWidget {
 }
 
 class _CalcularState extends State<Calcular> {
-  double valor1 = 0;
-  double valor2 = 0;
-  double resultado = 0;
-  int operacao = 0; // soma = 1; subtrair = 2; dividir = 3; multiplicar = 4
-  int porcentagem = 0;
+  final CalLogica logica = CalLogica();
 
-  String result = "0";
-  String saber = "";
-
-  String par = "";
-
-  int clickL1 = 1;
-  int click2 = 1;
-  int clickp = 1;
-  // int clickpop = 1;
-
-  limpar() {
-    setState(() {
-      // saber = "";
-      // result = "0";
-      // clickL1 = 1;
-      // click2 = 1;
-      // resultado = 0;
-      // operacao = 0;
-    });
+  @override
+  void initState() {
+    super.initState();
+    logica.addListener(_rebuild);
   }
 
-  parenteses() {
-    if (clickL1 == 1) {
-      par = "(";
-      clickL1 = 2;
-    } else if (clickL1 == 2) {
-      par = ")";
-      clickL1 = 1;
-    }
+  void _rebuild() => setState(() {});
 
-    setState(() {
-      click2 = 2;
-      if (result == "0") {
-        result = par;
-      } else {
-        result += par;
-      }
-    });
-  }
-
-  porcem() {
-    setState(() {
-      if (click2 == 2 && porcentagem == 0) {
-        result += "%";
-        saber += "%";
-        porcentagem++;
-      }
-    });
-  }
-
-  somar() {
-    if (click2 == 2) {
-      valor1 = double.parse(result);
-      operacao = 1;
-      click2 = 1;
-      clickp = 1;
-      setState(() {
-        result = "0";
-        saber += "+";
-      });
-    }
-  }
-
-  subtrair() {
-    if (click2 == 2) {
-      valor1 = double.parse(result);
-      operacao = 2;
-      click2 = 1;
-      clickp = 1;
-      setState(() {
-        result = "0";
-        saber += "-";
-      });
-    }
-  }
-
-  divisao() {
-    if (click2 == 2) {
-      valor1 = double.parse(result);
-      operacao = 3;
-      click2 = 1;
-      clickp = 1;
-      setState(() {
-        result = "0";
-        saber += "÷";
-      });
-    }
-  }
-
-  mult() {
-    if (click2 == 2) {
-      valor1 = double.parse(result);
-      operacao = 4;
-      click2 = 1;
-      clickp = 1;
-      setState(() {
-        result = "0";
-        saber += "x";
-      });
-    }
-  }
-
-  fazerConta() {
-    if (operacao == 1) {
-      valor2 = double.parse(result);
-      setState(() {
-        resultado = valor1 + valor2;
-        result = resultado.toString();
-      });
-    } else if (operacao == 2) {
-      valor2 = double.parse(result);
-      setState(() {
-        resultado = valor1 - valor2;
-        result = resultado.toString();
-      });
-    } else if (operacao == 3) {
-      valor2 = double.parse(result);
-      setState(() {
-        resultado = valor1 / valor2;
-        result = resultado.toString();
-      });
-    } else if (operacao == 4) {
-      valor2 = double.parse(result);
-      setState(() {
-        resultado = valor1 * valor2;
-        result = resultado.toString();
-      });
-    }
+  @override
+  void dispose() {
+    logica.removeListener(_rebuild);
+    super.dispose();
   }
 
   double width_button = 80.6;
@@ -185,7 +65,7 @@ class _CalcularState extends State<Calcular> {
       height: 50,
       margin: EdgeInsets.only(right: 10, left: 220),
       child: AutoSizeText(
-        saber,
+        logica.saber,
         minFontSize: 20,
         maxFontSize: 20,
         maxLines: 1,
@@ -203,7 +83,7 @@ class _CalcularState extends State<Calcular> {
         height: 100,
         margin: EdgeInsets.only(bottom: 10, left: 10, right: 20),
         child: AutoSizeText(
-          result,
+          logica.result,
           minFontSize: 40.0,
           maxFontSize: 80.0,
           maxLines: 2,
@@ -239,9 +119,7 @@ class _CalcularState extends State<Calcular> {
             width: 260,
             height: height_button,
             child: TextButton(
-              onPressed: () {
-                limpar();
-              },
+              onPressed: logica.limpando,
               child: Text(
                 "C",
                 style: TextStyle(
@@ -304,7 +182,7 @@ class _CalcularState extends State<Calcular> {
             width: width_button,
             height: height_button,
             child: TextButton(
-              onPressed: divisao,
+              onPressed: logica.divisao,
               child: Text(
                 "÷",
                 style: TextStyle(
@@ -329,18 +207,7 @@ class _CalcularState extends State<Calcular> {
             width: width_button,
             height: height_button,
             child: TextButton(
-              onPressed: () {
-                setState(() {
-                  if (click2 == 1) {
-                    result = "7";
-                    saber += "7";
-                    click2 = 2;
-                  } else if (click2 == 2) {
-                    result += "7";
-                    saber += "7";
-                  }
-                });
-              },
+              onPressed: logica.button7,
               child: Text(
                 "7",
                 style: TextStyle(
@@ -361,18 +228,7 @@ class _CalcularState extends State<Calcular> {
             width: width_button,
             height: height_button,
             child: TextButton(
-              onPressed: () {
-                setState(() {
-                  if (click2 == 1) {
-                    result = "8";
-                    saber += "8";
-                    click2 = 2;
-                  } else if (click2 == 2) {
-                    result += "8";
-                    saber += "8";
-                  }
-                });
-              },
+              onPressed: logica.button8,
               child: Text(
                 "8",
                 style: TextStyle(
@@ -393,18 +249,7 @@ class _CalcularState extends State<Calcular> {
             width: width_button,
             height: height_button,
             child: TextButton(
-              onPressed: () {
-                setState(() {
-                  if (click2 == 1) {
-                    result = "9";
-                    saber += "9";
-                    click2 = 2;
-                  } else if (click2 == 2) {
-                    result += "9";
-                    saber += "9";
-                  }
-                });
-              },
+              onPressed: logica.button9,
               child: Text(
                 "9",
                 style: TextStyle(
@@ -425,7 +270,7 @@ class _CalcularState extends State<Calcular> {
             width: width_button,
             height: height_button,
             child: TextButton(
-              onPressed: mult,
+              onPressed: logica.mult,
               child: Text(
                 "X",
                 style: TextStyle(
@@ -450,18 +295,7 @@ class _CalcularState extends State<Calcular> {
             width: width_button,
             height: height_button,
             child: TextButton(
-              onPressed: () {
-                setState(() {
-                  if (click2 == 1) {
-                    result = "4";
-                    saber += "4";
-                    click2 = 2;
-                  } else if (click2 == 2) {
-                    result += "4";
-                    saber += "4";
-                  }
-                });
-              },
+              onPressed: logica.button4,
               child: Text(
                 "4",
                 style: TextStyle(
@@ -482,18 +316,7 @@ class _CalcularState extends State<Calcular> {
             width: width_button,
             height: height_button,
             child: TextButton(
-              onPressed: () {
-                setState(() {
-                  if (click2 == 1) {
-                    result = "5";
-                    saber += "5";
-                    click2 = 2;
-                  } else if (click2 == 2) {
-                    result += "5";
-                    saber += "5";
-                  }
-                });
-              },
+              onPressed: logica.button5,
               child: Text(
                 "5",
                 style: TextStyle(
@@ -514,18 +337,7 @@ class _CalcularState extends State<Calcular> {
             width: width_button,
             height: height_button,
             child: TextButton(
-              onPressed: () {
-                setState(() {
-                  if (click2 == 1) {
-                    result = "6";
-                    saber += "6";
-                    click2 = 2;
-                  } else if (click2 == 2) {
-                    result += "6";
-                    saber += "6";
-                  }
-                });
-              },
+              onPressed: logica.button6,
               child: Text(
                 "6",
                 style: TextStyle(
@@ -546,7 +358,7 @@ class _CalcularState extends State<Calcular> {
             width: width_button,
             height: height_button,
             child: TextButton(
-              onPressed: subtrair,
+              onPressed: logica.subtrair,
               child: Text(
                 "—",
                 style: TextStyle(
@@ -571,18 +383,7 @@ class _CalcularState extends State<Calcular> {
             width: width_button,
             height: height_button,
             child: TextButton(
-              onPressed: () {
-                setState(() {
-                  if (click2 == 1) {
-                    result = "1";
-                    saber += "1";
-                    click2 = 2;
-                  } else if (click2 == 2) {
-                    result += "1";
-                    saber += "1";
-                  }
-                });
-              },
+              onPressed: logica.button1,
               child: Text(
                 "1",
                 style: TextStyle(
@@ -603,18 +404,7 @@ class _CalcularState extends State<Calcular> {
             width: width_button,
             height: height_button,
             child: TextButton(
-              onPressed: () {
-                setState(() {
-                  if (click2 == 1) {
-                    result = "2";
-                    saber += "2";
-                    click2 = 2;
-                  } else if (click2 == 2) {
-                    result += "2";
-                    saber += "2";
-                  }
-                });
-              },
+              onPressed: logica.button2,
               child: Text(
                 "2",
                 style: TextStyle(
@@ -635,18 +425,7 @@ class _CalcularState extends State<Calcular> {
             width: width_button,
             height: height_button,
             child: TextButton(
-              onPressed: () {
-                setState(() {
-                  if (click2 == 1) {
-                    result = "3";
-                    saber += "3";
-                    click2 = 2;
-                  } else if (click2 == 2) {
-                    result += "3";
-                    saber += "3";
-                  }
-                });
-              },
+              onPressed: logica.button3,
               child: Text(
                 "3",
                 style: TextStyle(
@@ -667,7 +446,7 @@ class _CalcularState extends State<Calcular> {
             width: width_button,
             height: height_button,
             child: TextButton(
-              onPressed: somar,
+              onPressed: logica.somar,
               child: Text(
                 "+",
                 style: TextStyle(
@@ -686,51 +465,12 @@ class _CalcularState extends State<Calcular> {
     return Row(
       children: [
         Card(
-          shape: CircleBorder(eccentricity: 1),
           color: Colors.lightBlue,
           child: Container(
-            width: width_button,
-            height: height_button,
-            // child: TextButton(
-            //   onPressed: () {},
-            //   child: Text(
-            //     "+/-",
-            //     style: TextStyle(
-            //       fontSize: 40,
-            //       color: Colors.black,
-            //     ),
-            //   ),
-            // ),
-          ),
-        ),
-        SizedBox(
-          width: width_box,
-        ),
-        Card(
-          shape: CircleBorder(eccentricity: 1),
-          color: Colors.lightBlue,
-          child: Container(
-            width: width_button,
+            width: 170,
             height: height_button,
             child: TextButton(
-              onPressed: () {
-                setState(() {
-                  if (click2 == 1) {
-                    result = "0";
-                  } else if (clickp > 1) {
-                    result += "0";
-                    saber += "0";
-                  } else if (click2 == 2) {
-                    if (operacao > 0) {
-                      result = "0";
-                      saber += "0";
-                    } else {
-                      result += "0";
-                      saber += "0";
-                    }
-                  }
-                });
-              },
+              onPressed: logica.button0,
               child: Text(
                 "0",
                 style: TextStyle(
@@ -751,23 +491,7 @@ class _CalcularState extends State<Calcular> {
             width: width_button,
             height: height_button,
             child: TextButton(
-              onPressed: () {
-                if (clickp == 1) {
-                  setState(() {
-                    if (click2 == 2) {
-                      clickp++;
-                      result += ".";
-                      saber += ".";
-                    }
-                    if (result == "0") {
-                      clickp++;
-                      click2 = 2;
-                      result += ".";
-                      saber += "0.";
-                    }
-                  });
-                }
-              },
+              onPressed: logica.buttonp,
               child: Text(
                 ".",
                 style: TextStyle(
@@ -788,7 +512,7 @@ class _CalcularState extends State<Calcular> {
             width: width_button,
             height: height_button,
             child: TextButton(
-              onPressed: fazerConta,
+              onPressed: logica.fazerConta,
               child: Text(
                 "=",
                 style: TextStyle(
